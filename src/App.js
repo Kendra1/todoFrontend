@@ -6,6 +6,8 @@ import Homepage from './Pages/Homepage';
 import Register from './Auth/Register/Register';
 import Login from './Auth/Login/Login';
 import AuthRoute from './Auth/AuthRoute/AuthRoute';
+import PrivateRoute from './Auth/AuthRoute/PrivateRoute';
+import AuthService from './services/api-services/AuthService';
 
 
 class App extends React.Component {
@@ -13,19 +15,12 @@ class App extends React.Component {
     token: null
   }
 
-  componentDidMount() {
-      
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log(this.props.history.location)
-    if (prevProps.history.location !== this.props.history.location) {
-
-    }
-  }
-
   updateToken = (token) => {
     this.setState({ token });
+  }
+
+  getToken = () => {
+    return AuthService.getToken();
   }
 
   renderComponent = (routerProps) => {
@@ -33,33 +28,13 @@ class App extends React.Component {
   }
   
   render() {
-    const { token } = this.state;
-    
-    // if(token){
-    //   return(
-    //     <div className="App">
-    //       <Router>
-    //         <div>
-    //           <ul>
-    //             <li>
-    //               <Link to="/">Homepage</Link>
-    //             </li>
-    //           </ul>
-    //           <Route exact path="/" component={Homepage} />
-    //           <Redirect to="/" />
-    //         </div>
-    //       </Router>
-    //     </div>
-    //   )
-    // }
+    ;
     return (
     <div className="App">
       <Router>
         <div>
+          
           <ul>
-            <li>
-              <Link to="/">Homepage</Link>
-            </li>
             <li>
               <Link to="/register">Register</Link>
             </li>
@@ -70,8 +45,8 @@ class App extends React.Component {
 
           <Switch>
           <Route exact path="/" component={Homepage} />
-          <Route path="/register" component={Register} />
-          <AuthRoute isAuthenticated = {this.state.token} update = {this.updateToken} path="/login" render={this.renderComponent} />
+          <PrivateRoute isAuthenticated = {this.getToken()} path="/register" component={Register} />
+          <AuthRoute isAuthenticated ={this.getToken()} path="/login" component={Login} updateToken={this.updateToken}/>
           </Switch>
         </div>
       </Router>

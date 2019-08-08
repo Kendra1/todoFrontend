@@ -17,7 +17,10 @@ class Register extends React.Component{
 
     handleSubmit = (e) => {
         e.preventDefault();
-        AuthService.register(this.state);
+        AuthService.register(this.state)
+        .then(() => {
+            this.props.history.push('/');
+        });
         
     }
 

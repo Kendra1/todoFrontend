@@ -5,9 +5,10 @@ import { withRouter } from 'react-router-dom';
 import AuthService from '../../services/api-services/AuthService';
 import { Redirect } from 'react-router';
 
-class AuthRoute extends React.Component{
+class PrivateRoute extends React.Component{
 
     render() {
+        console.log(this.props);
         const { isAuthenticated, ...restProps } = this.props;
         if(isAuthenticated){
             return <Redirect to="/"/>;
@@ -22,4 +23,4 @@ class AuthRoute extends React.Component{
 
 }
 
-export default withRouter(AuthRoute);
+export default withRouter(PrivateRoute);

@@ -23,6 +23,7 @@ class Login extends React.Component{
         AuthService.login(this.state)
         .then(data => {
             this.props.updateToken(data);
+            this.props.history.push('/');
         });
     }
 
