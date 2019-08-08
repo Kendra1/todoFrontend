@@ -90,7 +90,7 @@ class Register extends React.Component {
         />
         <br />
         <input type="submit" value="Submit" onClick={this.handleSubmit} />
-        {err && <h1> {err.toString()} </h1>}
+        {err && <h1> {err} </h1>}
       </form>
     );
   }

@@ -4,11 +4,7 @@ import Token from "../../model/Token";
 const ENDPOINTS = {
   LOGIN: "/login",
   REGISTER: "/register"
-  // ME: '/users/show',
-  // FORGOT_PASSWORD: '/auth/forgot-password',
-  // RESET_PASSWORD: '/auth/reset-password',
 };
-console.log(process.env);
 class AuthService extends BaseApiService {
   constructor(props) {
     super(props);
@@ -44,36 +40,8 @@ class AuthService extends BaseApiService {
     return registerResponse;
   };
 
-  // me = async () => {
-  //   const response = await this.apiClient.get(ENDPOINTS.ME);
-
-  //   const user = new User(response.data);
-
-  //   return user;
-  // };
-
-  // requirePasswordResetLink = async forgotPasswordData => {
-  //   const linkRequestResponse = await this.apiClient.post(
-  //     ENDPOINTS.FORGOT_PASSWORD,
-  //     forgotPasswordData,
-  //   );
-
-  //   return linkRequestResponse;
-  // };
-
-  // resetPassword = async resetPasswordData => {
-  //   const resetPasswordResponse = await this.apiClient.put(
-  //     ENDPOINTS.RESET_PASSWORD,
-  //     resetPasswordData,
-  //   );
-
-  //   return resetPasswordResponse;
-  // };
-
   createSession = token => {
-    console.log(token);
-    this.tokencic = JSON.stringify(token);
-    localStorage.setItem("token", this.tokencic);
+    localStorage.setItem("token", JSON.stringify(token));
 
     this.attachAuthHeader(token.value);
   };

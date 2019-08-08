@@ -5,6 +5,7 @@ import "./App.css";
 import Homepage from "./Pages/Homepage";
 import Register from "./Auth/Register/Register";
 import Login from "./Auth/Login/Login";
+import ListTodos from "./Todos/ListTodos";
 import AuthRoute from "./Auth/AuthRoute/AuthRoute";
 import PrivateRoute from "./Auth/AuthRoute/PrivateRoute";
 import AuthService from "./services/api-services/AuthService";
@@ -18,31 +19,27 @@ class App extends React.Component {
     this.setState({ token });
   };
 
-  getToken = () => AuthService.getToken();
-
   render() {
     return (
       <div className="App">
         <Router>
           <div>
-            <ul>
-              <li>
-                <Link to="/register">Register</Link>
-              </li>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-            </ul>
+            {!AuthService.getToken() && (
+              <ul>
+                <li>
+                  <Link to="/register">Register</Link>
+                </li>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+              </ul>
+            )}
 
             <Switch>
-              <Route exact path="/" component={Homepage} />
-              <PrivateRoute
-                isAuthenticated={this.getToken()}
-                path="/register"
-                component={Register}
-              />
+              <PrivateRoute exact path="/todos" component={ListTodos} />
+              <PrivateRoute exact path="/" component={Homepage} />
+              <AuthRoute path="/register" component={Register} />
               <AuthRoute
-                isAuthenticated={this.getToken()}
                 path="/login"
                 component={Login}
                 updateToken={this.updateToken}

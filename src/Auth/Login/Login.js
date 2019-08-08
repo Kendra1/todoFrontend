@@ -10,7 +10,6 @@ class Login extends React.Component {
       ...this.state,
       [name]: value
     });
-    console.log(this.state);
   };
 
   handleSubmit = e => {
@@ -18,13 +17,12 @@ class Login extends React.Component {
     AuthService.login(this.state)
       .then(data => {
         this.props.updateToken(data);
-        this.props.history.push("/");
+        this.props.history.push("/todos");
       })
-      .catch(error => this.setState({ err: error }));
+      .catch(error => this.setState({ err: "Invalid credentials." }));
   };
 
   render() {
-    console.log(this.props);
     const { err } = this.state;
     return (
       <form>
@@ -45,7 +43,7 @@ class Login extends React.Component {
         />
         <br />
         <input type="submit" value="Submit" onClick={this.handleSubmit} />
-        {err && <h1> {err.toString()} </h1>}
+        {err && <h1> {err} </h1>}
       </form>
     );
   }
