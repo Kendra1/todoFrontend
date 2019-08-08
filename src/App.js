@@ -19,20 +19,12 @@ class App extends React.Component {
     this.setState({ token });
   };
 
-  getToken = () => {
-    return AuthService.getToken();
-  };
-
-  renderComponent = routerProps => {
-    return <Login {...routerProps} updateToken={this.updateToken} />;
-  };
-
   render() {
     return (
       <div className="App">
         <Router>
           <div>
-            {!this.getToken() && (
+            {!AuthService.getToken() && (
               <ul>
                 <li>
                   <Link to="/register">Register</Link>

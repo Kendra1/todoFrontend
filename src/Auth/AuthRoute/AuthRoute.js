@@ -7,12 +7,11 @@ import AuthService from "../../services/api-services/AuthService";
 class AuthRoute extends React.Component {
   render() {
     const isAuthenticated = AuthService.getToken();
+    const { component: Component, ...restProps } = this.props;
     if (isAuthenticated) {
       return <Redirect to="/" />;
     }
-    const Component = this.props.component;
-
-    return <Component {...this.props} />;
+    return <Component {...restProps} />;
   }
 }
 

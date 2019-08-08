@@ -9,11 +9,22 @@ class ListTodos extends React.Component {
   };
 
   componentDidMount() {
-    this.setState(TodoService.getTodos(AuthService.getToken()));
+    TodoService.getTodos().then(todos => {
+      this.setState({ todos: [...this.state.todos, ...todos] });
+      // const { todos } = this.state;
+    });
+    // console.log(response);
+    // console.log(todos);
   }
 
   render() {
-    return <div />;
+    return (
+      <div>
+        {this.state.todos.map(todo => (
+          <TodoItem todoItem={todo} key={todo.id} />
+        ))}
+      </div>
+    );
   }
 }
 

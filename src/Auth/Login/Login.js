@@ -2,11 +2,10 @@ import React from "react";
 import AuthService from "../../services/api-services/AuthService";
 
 class Login extends React.Component {
-  state = { email: "", password: "" };
+  state = { email: "", password: "", err: "" };
 
-  handleChange = event => {
-    const value = event.target.value;
-    const name = event.target.name;
+  handleChange = ({ target }) => {
+    const { value, name } = target;
     this.setState({
       ...this.state,
       [name]: value
@@ -15,13 +14,16 @@ class Login extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    AuthService.login(this.state).then(data => {
-      this.props.updateToken(data);
-      this.props.history.push("/todos");
-    });
+    AuthService.login(this.state)
+      .then(data => {
+        this.props.updateToken(data);
+        this.props.history.push("/todos");
+      })
+      .catch(error => this.setState({ err: "Invalid credentials." }));
   };
 
   render() {
+    const { err } = this.state;
     return (
       <form>
         Email
@@ -41,6 +43,7 @@ class Login extends React.Component {
         />
         <br />
         <input type="submit" value="Submit" onClick={this.handleSubmit} />
+        {err && <h1> {err} </h1>}
       </form>
     );
   }

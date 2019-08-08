@@ -8,7 +8,8 @@ class Register extends React.Component {
     email: "",
     password: "",
     password_confirmation: "",
-    company: ""
+    company: "",
+    err: ""
   };
 
   handleChange = event => {
@@ -22,12 +23,22 @@ class Register extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    AuthService.register(this.state).then(() => {
-      this.props.history.push("/");
-    });
+    AuthService.register(this.state)
+      .then(() => {
+        this.props.history.push("/");
+      })
+      .catch(error => {
+        if (error.response.data.email) {
+          this.setState({ err: "Email is already taken or invalid" });
+        } else {
+          this.setState({ err: "Invalid input" });
+        }
+      });
   };
 
   render() {
+    const { err } = this.state;
+
     return (
       <form>
         First name
@@ -79,6 +90,7 @@ class Register extends React.Component {
         />
         <br />
         <input type="submit" value="Submit" onClick={this.handleSubmit} />
+        {err && <h1> {err} </h1>}
       </form>
     );
   }

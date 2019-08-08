@@ -17,9 +17,11 @@ class TodoService extends BaseApiService {
     }
   }
 
-  getTodos = async token => {
-    const todosResponse = await this.apiClient.get(ENDPOINTS.TODOS, token);
-    return todosResponse;
+  getTodos = async () => {
+    const todosResponse = await this.apiClient.get(ENDPOINTS.TODOS);
+    const todos = todosResponse.data;
+    console.log(todos);
+    return todos;
   };
 }
 

@@ -1,12 +1,13 @@
 import React from "react";
 
-const TodoItem = props => {
+const TodoItem = ({ todoItem }) => {
+  console.log("tt", todoItem);
   return (
     <div>
-      <h3>props.todo.title</h3>
-      <h3>props.todo.description</h3>
-      <h3>props.todo.priority</h3>
-      <h3>props.todo.completed</h3>
+      <h3>{todoItem.title}</h3>
+      <h3>{todoItem.description}</h3>
+      <h3>{todoItem.priority}</h3>
+      <h3>{todoItem.completed}</h3>
     </div>
   );
 };
