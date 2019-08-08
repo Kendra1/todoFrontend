@@ -1,10 +1,9 @@
-import BaseApiService from './BaseApiService';
-import Token from '../../model/Token';  
-
+import BaseApiService from "./BaseApiService";
+import Token from "../../model/Token";
 
 const ENDPOINTS = {
-  LOGIN: '/login',
-  REGISTER: '/register'
+  LOGIN: "/login",
+  REGISTER: "/register"
   // ME: '/users/show',
   // FORGOT_PASSWORD: '/auth/forgot-password',
   // RESET_PASSWORD: '/auth/reset-password',
@@ -22,8 +21,8 @@ class AuthService extends BaseApiService {
   }
 
   login = async loginData => {
-    const loginResponse = await this.apiClient.post(ENDPOINTS.LOGIN, loginData);
-    const token = new Token(loginResponse.data);
+    const { data } = await this.apiClient.post(ENDPOINTS.LOGIN, loginData);
+    const token = new Token(data);
 
     this.createSession(token);
 
@@ -37,10 +36,13 @@ class AuthService extends BaseApiService {
   };
 
   register = async registerData => {
-    const registerResponse = await this.apiClient.post(ENDPOINTS.REGISTER, registerData);
+    const registerResponse = await this.apiClient.post(
+      ENDPOINTS.REGISTER,
+      registerData
+    );
 
     return registerResponse;
-  }
+  };
 
   // me = async () => {
   //   const response = await this.apiClient.get(ENDPOINTS.ME);
@@ -71,34 +73,34 @@ class AuthService extends BaseApiService {
   createSession = token => {
     console.log(token);
     this.tokencic = JSON.stringify(token);
-    localStorage.setItem('token', this.tokencic);
-    
+    localStorage.setItem("token", this.tokencic);
+
     this.attachAuthHeader(token.value);
   };
 
   destroySession = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
 
     this.removeAuthHeader();
   };
 
   attachAuthHeader = token => {
     this.http.attachHeaders({
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`
     });
   };
 
   removeAuthHeader = () => {
-    this.http.removeHeaders(['Authorization']);
+    this.http.removeHeaders(["Authorization"]);
   };
 
   getToken = () => {
-    const token = JSON.parse(localStorage.getItem('token'));
+    const token = JSON.parse(localStorage.getItem("token"));
 
     return token ? new Token(token) : null;
   };
 
-  check = () => !!localStorage.getItem('token');
+  check = () => !!localStorage.getItem("token");
 }
 
 export default new AuthService();
