@@ -44,25 +44,10 @@ class App extends React.Component {
             )}
 
             <Switch>
-              <PrivateRoute
-                isAuthenticated={this.getToken()}
-                exact
-                path="/todos"
-                component={ListTodos}
-              />
-              <PrivateRoute
-                isAuthenticated={this.getToken()}
-                exact
-                path="/"
-                component={Homepage}
-              />
+              <PrivateRoute exact path="/todos" component={ListTodos} />
+              <PrivateRoute exact path="/" component={Homepage} />
+              <AuthRoute path="/register" component={Register} />
               <AuthRoute
-                isAuthenticated={this.getToken()}
-                path="/register"
-                component={Register}
-              />
-              <AuthRoute
-                isAuthenticated={this.getToken()}
                 path="/login"
                 component={Login}
                 updateToken={this.updateToken}

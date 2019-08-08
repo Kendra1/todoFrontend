@@ -2,10 +2,11 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 
 import { Redirect } from "react-router";
+import AuthService from "../../services/api-services/AuthService";
 
 class PrivateRoute extends React.Component {
   render() {
-    const { isAuthenticated } = this.props;
+    const isAuthenticated = AuthService.getToken();
     if (!isAuthenticated) {
       return <Redirect to="/login" />;
     }

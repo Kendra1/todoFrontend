@@ -3,8 +3,7 @@ import Token from "../../model/Token";
 
 const ENDPOINTS = {
   LOGIN: "/login",
-  REGISTER: "/register",
-  TODOS: "/todo"
+  REGISTER: "/register"
 };
 class AuthService extends BaseApiService {
   constructor(props) {
