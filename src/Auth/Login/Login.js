@@ -1,48 +1,49 @@
-import React from 'react';
-import AuthService from '../../services/api-services/AuthService';
+import React from "react";
+import AuthService from "../../services/api-services/AuthService";
 
+class Login extends React.Component {
+  state = { email: "", password: "" };
 
-class Login extends React.Component{
+  handleChange = event => {
+    const value = event.target.value;
+    const name = event.target.name;
+    this.setState({
+      ...this.state,
+      [name]: value
+    });
+  };
 
-    state = {'email': '', 'password': ''};
+  handleSubmit = e => {
+    e.preventDefault();
+    AuthService.login(this.state).then(data => {
+      this.props.updateToken(data);
+      this.props.history.push("/todos");
+    });
+  };
 
-    handleChange = (event) =>{
-
-        const value = event.target.value;
-        const name = event.target.name;
-        this.setState({
-            ...this.state,
-            [name]: value
-        })
-        console.log(this.state);
-
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        AuthService.login(this.state)
-        .then(data => {
-            this.props.updateToken(data);
-            this.props.history.push('/');
-        });
-    }
-
-    render(){
-        console.log(this.props);
-        return(
-
-            <form>
-
-                Email<input type="text" name="email" value={this.state.email} onChange={this.handleChange}/>
-                <br />
-                Password<input type="text" name="password" value={this.state.password} onChange={this.handleChange}/>
-                <br />
-                <input type="submit" value="Submit" onClick={this.handleSubmit}/>
-            </form>
-
-        )
-    }
-
+  render() {
+    return (
+      <form>
+        Email
+        <input
+          type="text"
+          name="email"
+          value={this.state.email}
+          onChange={this.handleChange}
+        />
+        <br />
+        Password
+        <input
+          type="text"
+          name="password"
+          value={this.state.password}
+          onChange={this.handleChange}
+        />
+        <br />
+        <input type="submit" value="Submit" onClick={this.handleSubmit} />
+      </form>
+    );
+  }
 }
- 
+
 export default Login;
