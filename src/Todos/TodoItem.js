@@ -1,7 +1,6 @@
 import React from "react";
 
 const TodoItem = ({ todoItem }) => {
-  console.log("tt", todoItem);
   return (
     <div>
       <h3>{todoItem.title}</h3>

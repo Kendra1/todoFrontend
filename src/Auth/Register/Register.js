@@ -12,9 +12,8 @@ class Register extends React.Component {
     err: ""
   };
 
-  handleChange = event => {
-    const value = event.target.value;
-    const name = event.target.name;
+  handleChange = target => {
+    const { name, value } = target;
     this.setState({
       ...this.state,
       [name]: value
@@ -90,7 +89,11 @@ class Register extends React.Component {
         />
         <br />
         <input type="submit" value="Submit" onClick={this.handleSubmit} />
-        {err && <h1> {err} </h1>}
+        {err && (
+          <h1>
+            <font color="red">{err} </font>
+          </h1>
+        )}
       </form>
     );
   }
