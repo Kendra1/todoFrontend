@@ -1,6 +1,5 @@
 import React from "react";
 import TodoService from "../services/api-services/TodoService";
-import AuthService from "../services/api-services/AuthService";
 import TodoItem from "../Todos/TodoItem";
 
 class ListTodos extends React.Component {
@@ -14,21 +13,24 @@ class ListTodos extends React.Component {
     });
   }
 
-  routeChange = () => {
+  gotoNewTodo = () => {
     this.props.history.push("/newTodo");
   };
 
+  renderTodos = () => {
+    return this.state.todos.map(todo => (
+      <TodoItem todoItem={todo} key={todo.id} />
+    ));
+  };
+
   render() {
-    if (this.state.todos.length == 0) {
-      return <div> You currently don't have any todos. </div>;
-    }
-    return (
+    return this.state.todos.length ? (
       <div>
-        {this.state.todos.map(todo => (
-          <TodoItem todoItem={todo} key={todo.id} />
-        ))}
-        <button onClick={this.routeChange}>New Todo</button>
+        {this.renderTodos()}
+        <button onClick={this.gotoNewTodo}>New Todo</button>
       </div>
+    ) : (
+      <div> You currently don't have any todos. </div>
     );
   }
 }

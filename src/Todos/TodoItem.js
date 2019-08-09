@@ -19,8 +19,7 @@ const TodoItem = ({ todoItem }) => {
       <h4>
         Completed:
         <font color="blue">
-          {!todoItem.completed && "Not completed"}
-          {todoItem.completed > 0 && "Completed"}
+          {!todoItem.completed ? "Not completed" : "Completed"}
         </font>
       </h4>
       <br />

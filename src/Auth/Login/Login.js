@@ -19,7 +19,7 @@ class Login extends React.Component {
         this.props.updateToken(data);
         this.props.history.push("/todos");
       })
-      .catch(error => this.setState({ err: "Invalid credentials." }));
+      .catch(() => this.setState({ err: "Invalid credentials." }));
   };
 
   render() {
@@ -43,7 +43,11 @@ class Login extends React.Component {
         />
         <br />
         <input type="submit" value="Submit" onClick={this.handleSubmit} />
-        {err && <h1> {err} </h1>}
+        {err && (
+          <h1>
+            <font color="red">{err} </font>
+          </h1>
+        )}
       </form>
     );
   }
