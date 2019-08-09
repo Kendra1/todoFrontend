@@ -1,14 +1,10 @@
 import React from "react";
-<<<<<<< HEAD
 import {
   BrowserRouter as Router,
   withRouter,
   Link,
   Switch
 } from "react-router-dom";
-=======
-import { BrowserRouter as Router, Link, Switch } from "react-router-dom";
->>>>>>> df91d624a8dfdc3c4d6866951dd838cdf23ebb4f
 
 import "./App.css";
 import Homepage from "./Pages/Homepage";
@@ -23,7 +19,6 @@ import NewTodo from "./Todos/NewTodo";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
   }
   state = {
     token: null
