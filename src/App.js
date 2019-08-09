@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  withRouter,
+  Link,
+  Switch
+} from "react-router-dom";
 
 import "./App.css";
 import Homepage from "./Pages/Homepage";
@@ -11,6 +16,10 @@ import PrivateRoute from "./Auth/AuthRoute/PrivateRoute";
 import AuthService from "./services/api-services/AuthService";
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(this.props);
+  }
   state = {
     token: null
   };
@@ -19,12 +28,17 @@ class App extends React.Component {
     this.setState({ token });
   };
 
+  loggingOut = () => {
+    AuthService.logout();
+    this.props.history.push("/login");
+  };
+
   render() {
     return (
       <div className="App">
         <Router>
           <div>
-            {!AuthService.getToken() && (
+            {!AuthService.getToken() ? (
               <ul>
                 <li>
                   <Link to="/register">Register</Link>
@@ -33,6 +47,8 @@ class App extends React.Component {
                   <Link to="/login">Login</Link>
                 </li>
               </ul>
+            ) : (
+              <button onClick={this.loggingOut}>Log Out</button>
             )}
 
             <Switch>
@@ -52,4 +68,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);
