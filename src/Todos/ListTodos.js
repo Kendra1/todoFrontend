@@ -17,9 +17,26 @@ class ListTodos extends React.Component {
     this.props.history.push("/newTodo");
   };
 
+  deleteTodo = id => {
+    TodoService.deleteTodo(id).then(res => {
+      this.setState({
+        todos: this.state.todos.filter(todo => todo.id !== res)
+      });
+    });
+  };
+
+  editTodo = todoData => {
+    this.props.history.push("/newTodo", todoData);
+  };
+
   renderTodos = () => {
     return this.state.todos.map(todo => (
-      <TodoItem todoItem={todo} key={todo.id} />
+      <TodoItem
+        todoItem={todo}
+        key={todo.id}
+        deleteTodo={this.deleteTodo}
+        editTodo={this.editTodo}
+      />
     ));
   };
 
@@ -30,7 +47,10 @@ class ListTodos extends React.Component {
         <button onClick={this.gotoNewTodo}>New Todo</button>
       </div>
     ) : (
-      <div> You currently don't have any todos. </div>
+      <div>
+        You currently don't have any todos.
+        <button onClick={this.gotoNewTodo}>New Todo</button>
+      </div>
     );
   }
 }

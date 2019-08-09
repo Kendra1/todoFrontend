@@ -2,6 +2,14 @@ import React from "react";
 import TodoService from "../services/api-services/TodoService";
 
 class NewTodo extends React.Component {
+  componentDidMount() {
+    if (this.props.location.state) {
+      this.setState({
+        ...this.props.location.state,
+        editing: true
+      });
+    }
+  }
   state = {
     title: "",
     description: " ",
@@ -20,7 +28,11 @@ class NewTodo extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    TodoService.makeTodo(this.state)
+
+    (this.state.editing
+      ? TodoService.editTodo(this.state)
+      : TodoService.makeTodo(this.state)
+    )
       .then(() => {
         this.props.history.push("/todos");
       })
@@ -73,7 +85,11 @@ class NewTodo extends React.Component {
           <option value="1">True</option>
         </select>
         <br />
-        <input type="submit" value="Submit" onClick={this.handleSubmit} />
+        <input
+          type="submit"
+          value={this.state.editing ? "Edit" : "Submit"}
+          onClick={this.handleSubmit}
+        />
         {err && (
           <h1>
             <font color="red">{err}</font>
