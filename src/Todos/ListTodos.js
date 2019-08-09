@@ -25,9 +25,18 @@ class ListTodos extends React.Component {
     });
   };
 
+  editTodo = todoData => {
+    this.props.history.push("/newTodo", todoData);
+  };
+
   renderTodos = () => {
     return this.state.todos.map(todo => (
-      <TodoItem todoItem={todo} key={todo.id} deleteTodo={this.deleteTodo} />
+      <TodoItem
+        todoItem={todo}
+        key={todo.id}
+        deleteTodo={this.deleteTodo}
+        editTodo={this.editTodo}
+      />
     ));
   };
 

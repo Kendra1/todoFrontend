@@ -34,6 +34,14 @@ class TodoService extends BaseApiService {
     );
     return deleteResponse.data;
   };
+
+  editTodo = async ({ id, ...restData }) => {
+    const editResponse = await this.apiClient.put(
+      ENDPOINTS.TODOS + "/" + id,
+      restData
+    );
+    return editResponse;
+  };
 }
 
 export default new TodoService();
