@@ -7,13 +7,8 @@ class ListTodos extends React.Component {
     todos: []
   };
 
-  constuctor() {
-    this.routeChange = this.routeChange.bind(this);
-  }
-
   componentDidMount() {
     TodoService.getTodos().then(todos => {
-      console.log(todos);
       this.setState({ todos });
     });
   }

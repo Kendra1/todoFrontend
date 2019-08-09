@@ -16,7 +16,6 @@ class NewTodo extends React.Component {
       ...this.state,
       [name]: value
     });
-    console.log(this.state);
   };
 
   handleSubmit = e => {
@@ -25,7 +24,7 @@ class NewTodo extends React.Component {
       .then(() => {
         this.props.history.push("/todos");
       })
-      .catch(error => {
+      .catch(() => {
         this.setState({ err: "Invalid input" });
       });
   };
