@@ -43,7 +43,9 @@ class Login extends React.Component {
         />
         <br />
         <input type="submit" value="Submit" onClick={this.handleSubmit} />
-        {err && <h1> {err} </h1>}
+        <h1>
+          <font color="red">{err} </font>
+        </h1>
       </form>
     );
   }
