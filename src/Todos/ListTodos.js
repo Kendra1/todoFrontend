@@ -13,18 +13,24 @@ class ListTodos extends React.Component {
     });
   }
 
-  routeChange = () => {
+  gotoNewTodo = () => {
     this.props.history.push("/newTodo");
   };
 
+  renderTodos = () => {
+    return this.state.todos.map(todo => (
+      <TodoItem todoItem={todo} key={todo.id} />
+    ));
+  };
+
   render() {
-    return (
+    return this.state.todos.length ? (
       <div>
-        {this.state.todos.map(todo => (
-          <TodoItem todoItem={todo} key={todo.id} />
-        ))}
-        <button onClick={this.routeChange}>New Todo</button>
+        {this.renderTodos()}
+        <button onClick={this.gotoNewTodo}>New Todo</button>
       </div>
+    ) : (
+      <div> You currently don't have any todos. </div>
     );
   }
 }

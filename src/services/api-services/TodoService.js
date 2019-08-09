@@ -1,5 +1,6 @@
 import BaseApiService from "./BaseApiService";
 import AuthService from "./AuthService";
+import Token from "../../model/Token";
 
 const ENDPOINTS = {
   TODOS: "/todo"
