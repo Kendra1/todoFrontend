@@ -1,6 +1,5 @@
 import BaseApiService from "./BaseApiService";
 import AuthService from "./AuthService";
-import Token from "../../model/Token";
 
 const ENDPOINTS = {
   TODOS: "/todo"
@@ -20,8 +19,12 @@ class TodoService extends BaseApiService {
   getTodos = async () => {
     const todosResponse = await this.apiClient.get(ENDPOINTS.TODOS);
     const todos = todosResponse.data;
-    console.log(todos);
     return todos;
+  };
+
+  makeTodo = async todoData => {
+    const todosResponse = await this.apiClient.post(ENDPOINTS.TODOS, todoData);
+    return todosResponse;
   };
 }
 

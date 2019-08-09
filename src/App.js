@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Link, Switch } from "react-router-dom";
 
 import "./App.css";
 import Homepage from "./Pages/Homepage";
@@ -9,6 +9,7 @@ import ListTodos from "./Todos/ListTodos";
 import AuthRoute from "./Auth/AuthRoute/AuthRoute";
 import PrivateRoute from "./Auth/AuthRoute/PrivateRoute";
 import AuthService from "./services/api-services/AuthService";
+import NewTodo from "./Todos/NewTodo";
 
 class App extends React.Component {
   state = {
@@ -36,6 +37,7 @@ class App extends React.Component {
             )}
 
             <Switch>
+              <PrivateRoute exact path="/newTodo" component={NewTodo} />
               <PrivateRoute exact path="/todos" component={ListTodos} />
               <PrivateRoute exact path="/" component={Homepage} />
               <AuthRoute path="/register" component={Register} />
